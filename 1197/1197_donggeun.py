@@ -49,6 +49,7 @@
 
 # 특정 원소가 속한 집합을 찾기
 
+# 부모 찾기, 속한 집합?
 def find(parent, x):
     # print('in', parent, x)
     if parent[x] == x:
@@ -57,10 +58,12 @@ def find(parent, x):
     # print('resutl' , parent[x])
     return parent[x]
 
+# 두 노드 연결
 def union(parent, a,b):
     rootA = find(parent,a)
     rootB = find(parent,b)
 
+    # 최고 높은 부모에서 연결
     if rootA < rootB:
         parent[rootB] = rootA
     else:
@@ -74,7 +77,7 @@ arr = []
 for i in range(e):
     a, b, c = map(int, sys.stdin.readline().split())
     arr.append([c] +sorted([a,b]))
-# cost 기준, 정렬
+# cost 기준, 정렬(크루스칼)
 arr.sort()
 
 # 테이블 초기화
@@ -92,9 +95,10 @@ for edge in arr:
     end = edge[2]
 
     if find(parent, start) != find(parent, end):
-        # print('start union')
+        # print('start union', start, end)
         union(parent, start, end)
         cost_sum+=cost
+        # print()
 
     # print(parent)
 

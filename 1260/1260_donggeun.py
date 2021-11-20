@@ -121,10 +121,11 @@
 import sys
 from collections import deque
 
+# 노드와, 간선, 시작 정점 입력
 N, M, V = map(int, sys.stdin.readline().split())
 
+# 2차원 배열 생성
 graph = [[0] *(N+1) for _ in range(N+1)]
-
 for _ in range(M):
     m1, m2 = map(int, sys.stdin.readline().split())
     graph[m1][m2] = graph[m2][m1] = 1
