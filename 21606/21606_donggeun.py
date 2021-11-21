@@ -63,37 +63,47 @@ for i in range(n-1):
     arr_start[a].append(b)
     arr_start[b].append(a)
     # 실내가 붙어 있을 경우
-    if in_out[a-1] == 1 and in_out[b-1] == 1:
+    if int(in_out[a-1]) == 1 and int(in_out[b-1]) == 1:
         cnt+=2
 
-# print(in_out)
-# print(arr_start)
 
-visited = []
+visited = [False] * (n+1)
+visite_cnt = 0
+
+# 실외 dfs
 def dfs(v):
-    global cnt
-    visited.append(v)
+    global cnt, visite_cnt
+    visited[v] = True
     for i in arr_start[v]:
-        if i not in visited:
-            if in_out[i-1] == "1":
-                visited.append(i)
-                cnt +=1
-            else:
-                dfs(i)
+        if in_out[i - 1] == "1":
+            print(v, i)
+            visite_cnt += 1
+        elif visited[i] == False:
+            # # 실내
+            # if in_out[i-1] == "1":
+            #     visited.append(i)
+            #     visite_cnt+=1
+            #     # cnt +=1
+            # # 실외
+            # else:
+            dfs(i)
 
 only_in = []
 for i in range(len(in_out)):
     if in_out[i] == "1":
         only_in.append(i+1)
-# print('only_in',only_in)
-
 if len(only_in) < 2:
     print(0)
     exit()
 
-for i in only_in:
-    dfs(i)
-    # print(visited)
-    visited=[]
+for i in range(1, n+1):
 
+    if in_out[i-1] == "0" and (visited[i] == False):
+        # print(i)
+        dfs(i)
+        cnt += visite_cnt * visite_cnt - visite_cnt
+    visite_cnt=0
+
+# for i in visite_cnt:
+#     cnt+= i*i -i
 print(cnt)
