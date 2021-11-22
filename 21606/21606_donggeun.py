@@ -51,12 +51,14 @@
 # 실내 기준 dfs가 아니라, 실외 기준 dfs
 # 만나는 실외마다 count
 # 실내가 붙어있을 경우는 간선을 입력 받을 때 +2 처리
+
 import sys
 sys.setrecursionlimit(10**5)
 
 cnt = 0
 n = int(sys.stdin.readline())
 in_out = list(sys.stdin.readline().strip())
+# 트리 구조를 리스트로 구현
 arr_start = [[] for i in range(n+1)]
 for i in range(n-1):
     a, b = map(int, sys.stdin.readline().split())
@@ -66,44 +68,43 @@ for i in range(n-1):
     if int(in_out[a-1]) == 1 and int(in_out[b-1]) == 1:
         cnt+=2
 
-
+# 방문 초기화
 visited = [False] * (n+1)
 visite_cnt = 0
 
-# 실외 dfs
+# 실외 기준으로 dfs
 def dfs(v):
     global cnt, visite_cnt
     visited[v] = True
+
+    # 모든 인접한 노드 탐색
     for i in arr_start[v]:
+        # 인접한 해당 노드가 실내이면 cnt 증가
         if in_out[i - 1] == "1":
-            print(v, i)
             visite_cnt += 1
+        # 인접한 해당 노드가 실내가 아니고, 방문도 하지 않으면 방문
         elif visited[i] == False:
-            # # 실내
-            # if in_out[i-1] == "1":
-            #     visited.append(i)
-            #     visite_cnt+=1
-            #     # cnt +=1
-            # # 실외
-            # else:
             dfs(i)
 
+# 실내가 1개일 경우, 0 출력
 only_in = []
 for i in range(len(in_out)):
     if in_out[i] == "1":
+        # 실내일 경우, 해당 노드 추가
         only_in.append(i+1)
 if len(only_in) < 2:
     print(0)
     exit()
 
+# 실외이고, 방문하지 않았으면 해당 노드 탐색
+# 실외끼리 연결이 안되어 있을 수 있음
 for i in range(1, n+1):
-
     if in_out[i-1] == "0" and (visited[i] == False):
-        # print(i)
+        # 해당 노드를 방문하고 모든 인접한 실외 노드까지 탐색
         dfs(i)
+        # 해당 노드(인접한 실외 노드 포함)에서 인접한 실내 노드의 카운트를 가지고 산책 route 계산
+        # 출발은 cnt개, 도착은 cnt-1개가 가능하므로 total += cnt(cnt-1)
         cnt += visite_cnt * visite_cnt - visite_cnt
     visite_cnt=0
 
-# for i in visite_cnt:
-#     cnt+= i*i -i
 print(cnt)

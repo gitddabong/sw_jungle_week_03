@@ -76,12 +76,11 @@ testCase = int(sys.stdin.readline())
 
 for _ in range(testCase):
     v, e = map(int, sys.stdin.readline().split())
-    # graph = [[0] *(v+1) for _ in range(v+1)]
-    tree = {}
 
+    # 그래프를 딕셔너리 타입으로 구현
+    tree = {}
     for _ in range(e):
         a, b = map(int, sys.stdin.readline().split())
-        # graph[a][b]=graph[b][a] = 1
         if a in tree.keys():
             tree[a].append(b)
         else:
@@ -92,24 +91,27 @@ for _ in range(testCase):
         else:
             tree[b] = [a]
 
-
+    # 색 초기화
     color = [0] * (v+1)
     flag = True
 
     def dfs(v, chk):
         global flag
-        # print(v)
+
+        # 인접한 노드가 있는지 판단
         if v in tree.keys():
+            # 모든 인접한 노드 탐색
             for i in tree[v]:
+                # 인접한 노드의 색이 0이면, 방문하지 않은 노드
+                # 색을 칠하고, 해당 노드 방문
                 if not color[i]: # not visited
-                    # print(color)
-                    # print('in', i)
                     color[i] = chk
                     dfs(i, -chk)
+                # 인접한 노드가 색이 칠해져 있는데, 자신과 색이 똑같으면 false
                 elif color[i] == color[v]:
                     flag = False
-            # print('v, i, color, chk, flag  : ', v , i,chk, color,flag)
 
+    # 모든 노드가 연결되어 있지 않은 경우 처리
     for i in range(1,len(color)):
         if color[i]  == 0:
             dfs(i,-1)

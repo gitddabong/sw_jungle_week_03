@@ -242,8 +242,10 @@
 
 
 # no understand
+
 def check(y, x):
     global N, M
+    # 빙산, 자기 자신 카운트
     cnt = 1
     visited = [[False] * M for _ in range(N)]
     visited[y][x] = True
@@ -253,25 +255,30 @@ def check(y, x):
     while s:
         y, x = s.pop()
 
+        # 상하좌우에 대하여 탐색
         for dir in range(4):
             ny = y + dy[dir]
             nx = x + dx[dir]
 
             if not visited[ny][nx] and arr[ny][nx] != 0:
+                # 방문하지 않고 빙산이면 카운트 증가
                 s.append((ny, nx))
                 visited[ny][nx] = True
                 cnt += 1
 
+    # 총 연결된 빙산의 수
     return cnt
 
-
+# 행, 열 입력
 N, M = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(N)]
+# 녹을 빙산 저장 리스트
 melt = [[0] * M for _ in range(N)]
 
 dy = [-1, 0, 1, 0]
 dx = [0, 1, 0, -1]
 
+# 빙산 인덱스 저장
 ice = []
 for i in range(1, N - 1):
     for j in range(1, M - 1):
@@ -280,31 +287,45 @@ for i in range(1, N - 1):
 
 ans = 0
 cnt = 0
+
+# 모든 빙산에 대해서 bfs?
 while ice:
+    # 모든 빙산의 개수랑 첫 번째 빙산에서 bfs한 빙산의 수가 다른 경우
+    # 둘로 나누어짐
     if len(ice) != check(ice[0][0], ice[0][1]):
         ans = cnt
         break
+
+    # 시간 증가
     cnt += 1
+
+    # 녹을 빙산 저장
     melt_co = []
+    # 모든 빙산 반복
     for i in range(len(ice) - 1, -1, -1):
         y, x = ice[i]
 
+        # 인접한 노드의 모든 경우
         for dir in range(4):
             ny = y + dy[dir]
             nx = x + dx[dir]
 
+            # 인접한 노드가 바다일 경우, 빙산이 녹을 경우 증가
             if arr[ny][nx] == 0:
                 melt[y][x] += 1
 
+        # 녹을 경우가 있을 경우, 인덱스와 빙산 인덱스 추가
         if melt[y][x] > 0:
             melt_co.append((y, x, i))
 
+    # 녹을 경우가 있는 모든 빙산
     for y, x, i in melt_co:
+        # 빙산 녹음
         arr[y][x] -= melt[y][x]
         if arr[y][x] <= 0:
             arr[y][x] = 0
             ice.pop(i)
-
+        # 초기와
         melt[y][x] = 0
 
 print(ans)

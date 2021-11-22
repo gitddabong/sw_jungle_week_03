@@ -147,6 +147,9 @@ import sys
 sys.setrecursionlimit(10**5)
 
 num_node = int(sys.stdin.readline())
+
+# 트리 구조를 딕셔너리 타입으로 구현
+# 상하 관계는 모르지만 인접한 노드는 알 수 있음
 tree = {}
 while True:
     try:
@@ -162,12 +165,12 @@ while True:
     except:
         break
 
-# print(tree)
-
 parent = [0] * (num_node+1)
 
 def dfs(v):
     for i in tree[v]:
+        # i에 방문하지 않은 상태이고, v에서 i를 방문
+        # 즉 v는 i의 부모
         if parent[i] == 0:
             parent[i] = v
             dfs(i)

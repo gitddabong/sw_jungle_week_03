@@ -21,11 +21,13 @@ dx=[-1,0,1,0]
 dy=[0,1,0,-1]
 
 def bfs():
-    q = deque([0,0])
+    q = deque()
+    q.append([0,0])
     check[0][0] = 0
 
     while q:
         x,y = q.popleft()
+
         for i in range(4):
             nx = x+dx[i]
             ny = y+dy[i]

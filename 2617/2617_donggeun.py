@@ -10,6 +10,7 @@
 import sys
 
 n,m = map(int, sys.stdin.readline().split())
+# 방향 그래프 두 개
 big_arr = [[] for _ in range(n+1)]
 small_arr = [[] for _ in range(n+1)]
 for _ in range(m):
@@ -17,37 +18,33 @@ for _ in range(m):
     big_arr[big].append(small)
     small_arr[small].append(big)
 
-# print(big_arr)
-# print(small_arr)
 
 def dfs(arr, v, visited=[]):
     global cnt
     visited.append(v)
     for i in range(len(arr[v])):
-        # print(v, i , arr[v][i])
-        # print(type(arr[v][i]))
-        # print(visited)
-        # print(arr[v][i] not in visited)
         if arr[v][i] not in visited:
             cnt+=1
             dfs(arr, arr[v][i], visited)
 
+# 같은 방향으로 dfs 할 경우, 만나는 노드의 수
 cnt = 0
 ans = 0
 visited = []
+
+# 모든 노드에 대해서 dfs
 for i in range(1, n+1):
     dfs(big_arr, i,visited)
-    # print(i,cnt,ans,(n+1)//2)
+    # 무게가 중간이 될 수 없는 경우, 정답 추가
     if cnt >= (n+1)//2:
         ans+=1
     cnt=0
     visited=[]
-# dfs(big_arr,4)
-# print(cnt)
 
+# 모든 노드에 대해서 dfs
 for i in range(1, n+1):
     dfs(small_arr, i,visited)
-    # print(i,cnt,ans,(n+1)//2)
+    # 무게가 중간이 될 수 없는 경우, 정답 추가
     if cnt >= (n+1)//2:
         ans+=1
     cnt=0

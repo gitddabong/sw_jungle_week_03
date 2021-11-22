@@ -15,6 +15,8 @@ add, sub, mul, div = map(int, sys.stdin.readline().split())
 
 max_ = float('-inf')
 min_ = float('inf')
+
+# 모든 연산자를 하나씩 줄이면서 dfs
 def dfs(i, res, add, sub, mul, div):
     global max_, min_
 
