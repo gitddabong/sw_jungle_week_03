@@ -20,7 +20,8 @@ def getPostorder(nums):
             # 왼쪽 서브트리 + 오른쪽 서브트리 + 루트
             return getPostorder(nums[1:i]) + getPostorder(nums[i:]) + [nums[0]]
 
-    # 맨 마지막 작업. 후위 순회는 루트 노드가 맨 마지막에 오니까 순서바꾸기
+    # 위에서 검사했을 때 루트보다 큰 값이 없는 경우도 있다.
+    # 그 경우에는 왼쪽 서브트리를 후위순회
     return getPostorder(nums[1:]) + [nums[0]]
 
 

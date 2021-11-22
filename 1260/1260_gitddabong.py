@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     for _ in range(m):
         x, y = map(int, input().split())
-        graph[x][y] = graph[x][y] = 1
+        graph[x][y] = graph[y][x] = 1
 
     dfs(v)
     print()
