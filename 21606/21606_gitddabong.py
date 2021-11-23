@@ -17,8 +17,8 @@ def dfs(graph, node, inout, count=0):
 def count_path(n, graph, inout):
     count = 0
     for start_node in range(1, n+1):
-        if inout[start_node] == 0:  # 현재 방문한 노드가 실외라면 ?
-            outdoors = dfs(graph, start_node, inout)     
+        if inout[start_node] == 0:  # 현재 방문한 노드가 실외라면?
+            outdoors = dfs(graph, start_node, inout)
             count += outdoors * (outdoors-1)
     # # 실내-실내 셈
     # for start_node in range(1, n+1):

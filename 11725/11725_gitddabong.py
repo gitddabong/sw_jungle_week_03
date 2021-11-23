@@ -14,6 +14,7 @@ if __name__ == "__main__":
     V = int(input())
     # 부모 노드를 저장하는 리스트
     parent = [0] * (V+1)
+    parent[1] = 1
     
     # 각 노드에 인접한 노드를 저장한 리스트
     tree = [[] for _ in range(V+1)]
