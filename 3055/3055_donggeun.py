@@ -45,8 +45,8 @@ while q_water:
         if 0 <= nx < row and 0<= ny < column and water[nx][ny] == 0 and arr[nx][ny] != 'X' and arr[nx][ny] != 'D':
             water[nx][ny] = water[x][y] +1
             q_water.append([nx,ny])
-# for i in water:
-#     print(i)
+for i in water:
+    print(i)
 
 
 while q_ddabong:
@@ -61,8 +61,8 @@ while q_ddabong:
             if ddabong[x][y] + 1 < water[nx][ny] or water[nx][ny] == 0:
                 ddabong[nx][ny] = ddabong[x][y] +1
                 q_ddabong.append([nx,ny])
-# for i in ddabong:
-#     print(i)
+for i in ddabong:
+    print(i)
 
 # for i in range(row):
 #     for j in range(column):

@@ -284,6 +284,7 @@ for i in range(1, N - 1):
     for j in range(1, M - 1):
         if arr[i][j] != 0:
             ice.append((i, j))
+print(ice)
 
 ans = 0
 cnt = 0

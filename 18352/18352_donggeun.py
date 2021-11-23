@@ -60,11 +60,13 @@ from collections import deque
 
 n,m,k,x = map(int, sys.stdin.readline().split())
 graph = [[] for _ in range(n+1)]
+# 해당 노드까지 갔을 때, 거리의 수 저장
 distance = [0] * (n+1)
 visited = [False] * (n+1)
 
 for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
+    # 방향 그래프
     graph[a].append(b)
 
 def bfs(start):
@@ -75,10 +77,13 @@ def bfs(start):
 
     while q:
         now = q.popleft()
+
+        # now와 인접한 모든 노드 탐색
         for i in graph[now]:
             if not visited[i] :
                 visited[i] = True
                 q.append(i)
+                # 인접 노드 = 현재 노드 + 1
                 distance[i] = distance[now] +1
                 if distance[i] == k:
                     answer.append(i)

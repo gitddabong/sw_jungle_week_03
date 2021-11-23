@@ -34,9 +34,11 @@ def bfs():
 
             if 0 <= nx < n and 0 <= ny < n:
                 if check[nx][ny] == -1:
+                    # 벽을 만나면 ,인접 노드 = 현재 노드 +1, 뒤에 삽입
                     if graph[nx][ny] == 0:
                         check[nx][ny] = check[x][y] + 1
                         q.append([nx,ny])
+                    # 아니면 인접 노드에 현재 노드 대입, 앞에 삽입
                     else:
                         check[nx][ny] = check[x][y]
                         q.appendleft([nx, ny])
