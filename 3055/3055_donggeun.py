@@ -61,6 +61,7 @@ while q_ddabong:
             if ddabong[x][y] + 1 < water[nx][ny] or water[nx][ny] == 0:
                 ddabong[nx][ny] = ddabong[x][y] +1
                 q_ddabong.append([nx,ny])
+print()
 for i in ddabong:
     print(i)
 

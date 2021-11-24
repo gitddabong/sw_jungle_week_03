@@ -197,9 +197,9 @@ while queue:
             queue.append([a,b,c])
             graph[a][b][c] = graph[x][y][z] +1
 
-# for i in graph:
-#     for j in i:
-#         print(j)
+for i in graph:
+    for j in i:
+        print(j)
 
 day = 0
 for i in graph:
