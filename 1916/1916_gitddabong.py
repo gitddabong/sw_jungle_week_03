@@ -1,6 +1,6 @@
 import sys
 from heapq import heappush, heappop
-
+input = sys.stdin.readline
 # def dijkstra(start):
 #     dist[start] = 0
 #     heap = []
