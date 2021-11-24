@@ -1,4 +1,8 @@
-# 시간 초과
+# Wrong Answer
+
+# 4 1 2 1
+# 1 2
+
 
 import sys
 from collections import deque
@@ -15,6 +19,8 @@ def bfs(start):
             if checklist[next] == 0:
                 q.append(next)
                 checklist[next] = count
+                if count == dist:
+                    result.append(next)
 
 if __name__ == "__main__":
     input = sys.stdin.readline
@@ -26,12 +32,12 @@ if __name__ == "__main__":
         if not dst in graph[src]:
             graph[src].append(dst)
     checklist = [0 for _ in range(V+1)]
+    result = []
 
     bfs(start)
     
-    for i in range(V+1):
-        if checklist[i] == dist:
-            print(i)
-
-    if not dist in checklist:
+    for node in result:
+        print(node)
+    
+    if not result:
         print(-1)
