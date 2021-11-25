@@ -10,6 +10,9 @@ for _ in range(m):
     graph[a].append(b)
     graph[b].append(a)
 
+for x in graph:
+    print(x)
+
 def DFS(start, visited):
     visited[start] = True
     for i in graph[start]:

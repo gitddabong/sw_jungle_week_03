@@ -1,37 +1,45 @@
 import sys
 from collections import deque
+input = sys.stdin.readline
 
-# 노드와, 간선, 시작 정점 입력
-N, M, V = map(int, sys.stdin.readline().split())
+def dfs(v):
+    # 리스트에 현재 위치 방문 표시
+    visit_list1[v] = 1
+    print(v, end = " ")
+    # 1부터 시작 : 인덱스 1부터 맞추기위해
+    for i in range(1, n + 1):
+        # 아직 방문하지 않았고, 그래프 안에 가려는 곳의 경로가 존재할 경우 재귀실행
+        if visit_list1[i] == 0 and graph[v][i] == 1:
+            dfs(i)
 
-# 2차원 배열 생성
-graph = [[0] *(N+1) for _ in range(N+1)]
-for _ in range(M):
-    m1, m2 = map(int, sys.stdin.readline().split())
-    graph[m1][m2] = graph[m2][m1] = 1
+def bfs(v):
+    q = deque()
+    q.append(v)
+    # 시작점 설정
+    visit_list2[v] = 1
+    # 큐가 빌 때까지 수행
+    while q:
+        # 큐의 맨 앞에 있는 노드를 선택
+        v = q.popleft()
+        print(v, end = " ")
+        for i in range(1, n+1):
+            # 방문하지 않았고 경로가 있는 경우 경로를 큐에 삽입, 리스트에 표시
+            if visit_list2[i] == 0 and graph[v][i] == 1:
+                q.append(i)
+                visit_list2[i] = 1
 
-def bfs(start_v):
-    discoverd = [start_v]
-    queue = deque()
-    queue.append(start_v)
 
-    while queue:
-        v = queue.popleft()
-        print(v,end=' ')
 
-        for w in range(len(graph[start_v])):
-            if graph[v][w] == 1 and (w not in discoverd):
-                discoverd.append(w)
-                queue.append(w)
+if __name__ == "__main__":
+    n, m, v = map(int, input().split())
+    graph = [[0] * (n+1) for _ in range(n+1)]
+    visit_list1 = [0] * (n+1)
+    visit_list2 = [0] * (n+1)
 
-def dfs(start_v, discoverd=[]):
-    discoverd.append(start_v)
-    print(start_v, end=' ')
+    for _ in range(m):
+        x, y = map(int, input().split())
+        graph[x][y] = graph[y][x] = 1
 
-    for w in range(len(graph[start_v])):
-        if graph[start_v][w] == 1 and (w not in discoverd):
-            dfs(w,discoverd)
-
-dfs(V)
-print()
-bfs(V)
+    dfs(v)
+    print()
+    bfs(v)

@@ -27,3 +27,5 @@ min_ans = float('inf')
 dfs(1, num_list[0], add, sub, mul, div)
 print(max_ans)
 print(min_ans)
+
+

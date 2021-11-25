@@ -9,8 +9,9 @@ parents = [0 for _ in range(n+1)]
 
 for _ in range(n-1):
     a, b = map(int, sys.stdin.readline().split())
-    graph[a].append(b)
+    graph[a].append(b)  
     graph[b].append(a) #방향성을 안나타내기위해 ! 그래프와 트리의 차이지!
+print(graph)
 
 def dfs(start, visited):
     visited[start] = True
