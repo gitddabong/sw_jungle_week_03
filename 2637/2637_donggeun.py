@@ -68,36 +68,30 @@ degree = [0] * (n+1)
 
 for _ in range(m):
     a, b, c = map(int, sys.stdin.readline().split())
+    # 기본 부품에서 중간 또는 완제품으로 가는 간선 생성
+    # 기본 = (중간 또는 완제품, 비용)
     connect[b].append((a,c))
     degree[a] +=1
 
+# 진입 차수가 0인, 기본 부품을 큐에 추가
 for i in range(1, n+1):
     if degree[i] == 0 :
         q.append(i)
 
-# print('degree', degree)
-# for i in needs:
-#     print(i)
-
 while q:
     now = q.popleft()
     for next, next_need in connect[now]:
-        # print('now', now, 'next', next)
+        # 기본 부품에 추가
         if needs[now].count(0) == n+1:
             needs[next][now] += next_need
+        # 필요한만큼 곱해서 추가
         else:
             for i in range(1, n+1):
                 needs[next][i] += needs[now][i] * next_need
         degree[next] -= 1
         if degree[next] == 0:
             q.append(next)
-        # print('degree', degree)
-        # for i in needs:
-        #     print(i)
 
 for x in enumerate(needs[n]):
     if x[1] > 0:
         print(*x)
-
-# for i in needs:
-#     print(i)

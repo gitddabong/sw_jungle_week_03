@@ -19,6 +19,7 @@ revers_arr = [[] for _ in range(n+1)]
 
 for _ in range(m):
     a, b, c = map(int, sys.stdin.readline().split())
+    # 진입, 진출 차수 체크
     in_degree[b]+=1
     out_degree[a]+=1
     arr[a].append([b,c])
@@ -43,6 +44,7 @@ while q:
         # print(now, i)
         if in_degree[i[0]] == 0 :
             q.append(i[0])
+        # 최대값으로
         if cost[i[0]] < (cost[now] + i[1]):
             cost[i[0]] = cost[now] + i[1]
 
